@@ -11,6 +11,15 @@ public class Hand : MonoBehaviour
 
     public List<int> stoneIds;
 
+    [SerializeField]
+    private GameObject handPositionLeft;
+    public float handStonesDistance;
+    private List<GameObject> handStones = new List<GameObject>();
+    [SerializeField]
+    private GameObject handStonesParent;
+    [SerializeField]
+    public GameObject handStonePrefab;
+
 
 
     // Start is called before the first frame update
@@ -26,6 +35,10 @@ public class Hand : MonoBehaviour
         {
             Draw();
         }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            HideHand();
+        }
     }
 
     public void Draw()
@@ -35,11 +48,44 @@ public class Hand : MonoBehaviour
         {
             // cannot draw;
         }
-        stoneIds.Add(id);
+        AddHand(id);
     }
 
     public void AddHand(int id)
     {
+        stoneIds.Add(id);
+        GameObject stone = Instantiate(handStonePrefab,
+            Vector3.zero,
+            Quaternion.identity,
+            handStonesParent.transform
+        ) as GameObject;
+        HandStone handStone = stone.GetComponent<HandStone>();
+        handStone.Initialize(eStoneKind.Black, id);
+        handStones.Add(stone);
+        UpdateHandStonePosition();
+        ShowHand();
+    }
+    private void UpdateHandStonePosition()
+    {
+        for (int i = 0; i < handStones.Count; i++)
+        {
+            handStones[i].transform.localPosition = new Vector3(handPositionLeft.transform.localPosition.x + i * handStonesDistance + handPositionLeft.transform.localPosition.y, 0);
+        }
+    }
+    public void ShowHand()
+    {
+        for (int i = 0; i < handStones.Count; i++)
+        {
+            handStones[i].SetActive(true);
+        }
+    }
+
+    public void HideHand()
+    {
+        for (int i = 0; i < handStones.Count; i++)
+        {
+            handStones[i].SetActive(false);
+        }
 
     }
 }

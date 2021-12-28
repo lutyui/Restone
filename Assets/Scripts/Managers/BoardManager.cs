@@ -45,14 +45,14 @@ public class BoardManager : MonoBehaviour
                 {
                     GameObject stone = InstantiateStone(i, j, eStoneKind.Black);
                     stones[i, j] = stone.GetComponent<Stone>();
-                    stones[i, j].Initialize(eStoneKind.Black, initialStoneCount, 0, i, j);
+                    stones[i, j].Initialize(eStoneKind.Black, initialStoneCount, 0, i, j, true);
                     stoneKinds[i, j] = eStoneKind.Black;
                 }
                 else if (Consts.initialStones[i, j] == eStoneKind.White)
                 {
                     GameObject stone = InstantiateStone(i, j, eStoneKind.White);
                     stones[i, j] = stone.GetComponent<Stone>();
-                    stones[i, j].Initialize(eStoneKind.White, initialStoneCount, 0, i, j);
+                    stones[i, j].Initialize(eStoneKind.White, initialStoneCount, 0, i, j, true);
                     stoneKinds[i, j] = eStoneKind.White;
                 }
                 else
@@ -180,7 +180,7 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public bool PutStone(int boardY, int boardX, eStoneKind stoneKind, int count, int turnNum, bool shouldTurnOver)
+    public bool PutStone(int boardY, int boardX, eStoneKind stoneKind, int count, int turnNum, bool shouldTurnOver, bool isActivated)
     {
         if (stoneKinds[boardY, boardX] != eStoneKind.None)
         {
@@ -194,7 +194,7 @@ public class BoardManager : MonoBehaviour
             }
             GameObject stone = InstantiateStone(boardY, boardX, stoneKind);
             stones[boardY, boardX] = stone.GetComponent<Stone>();
-            stones[boardY, boardX].Initialize(stoneKind, count, turnNum, boardY, boardX);
+            stones[boardY, boardX].Initialize(stoneKind, count, turnNum, boardY, boardX, isActivated);
             stoneKinds[boardY, boardX] = stoneKind;
             return true;
         }

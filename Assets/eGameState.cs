@@ -1,7 +1,9 @@
 ﻿public enum eGameState
 {
     Initializing,
-    CanInput,
+    DrawPhase,
+    SelectStone,
+    SelectPosition,
     ActivePhase,
     PassivePhase,
     TurnChanging,

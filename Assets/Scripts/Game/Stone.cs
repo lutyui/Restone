@@ -17,13 +17,22 @@ public class Stone : MonoBehaviour
     public int posY { get; set; }
     public int posX { get; set; }
 
-    public void Initialize(eStoneKind stoneKind, int count, int putTurn, int posY, int posX)
+    public void Initialize(eStoneKind stoneKind, int count, int putTurn, int posY, int posX, bool isActivated)
     {
         this.stoneKind = stoneKind;
-        this.count = count;
+        if (isActivated)
+        {
+            this.count = count;
+
+        }
+        else
+        {
+            this.count = -1;
+        }
         this.putTurn = putTurn;
         this.posY = posY;
         this.posX = posX;
+        this.IsInvokable = isActivated;
     }
 
 

@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
 
     public int initialStoneCount;
     public int newStoneCount;
+    public bool isActivated = true;
 
     public bool isPlayable = false;
     public eGameState gameState { get; set; }
@@ -57,7 +58,7 @@ public class GameManager : MonoBehaviour
             (bool isHitBoard, int hitBoardY, int hitBoardX) = InputManager.GetHitBoardPosition();
             if (isHitBoard)
             {
-                if (boardManager.PutStone(hitBoardY, hitBoardX, Turn, newStoneCount, TurnNum, true))
+                if (boardManager.PutStone(hitBoardY, hitBoardX, Turn, newStoneCount, TurnNum, true, isActivated))
                 {
 
                     isPlayable = false;
@@ -74,6 +75,18 @@ public class GameManager : MonoBehaviour
 
                 }
             }
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            newStoneCount++;
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            newStoneCount--;
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad0))
+        {
+            isActivated = !isActivated;
         }
     }
 
